@@ -47,7 +47,7 @@ def login():
         try:
             cursor.execute(sql_query)
             row = cursor.fetchone()
-            if row != None and row[4] == password:
+            if row != None and row[3] == password:
                 # record the user name
                 session["id"] = row[1]
                 session["name"] = row[2]
