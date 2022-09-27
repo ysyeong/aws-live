@@ -67,8 +67,23 @@ def about():
 
 @app.route("/certificate", methods=['GET','POST'])
 def certificate():
-    return render_template('certificate.html')
+    sql_query = "SELECT * FROM employee"
+    cursor = db_conn.cursor()
+    try:
+        cursor.execute(sql_query)
+        records = list(cursor.fetchall())
 
+        certificate = []
+        for rows in records:
+            certificate.append(list(rows))
+        cursor.close()
+        return render_template('certificate.html', certificate = certificate)
+    except Exception as e:
+        return str(e)
+
+@app.route("/addcertificate", methods=['GET','POST'])
+def addcertificate():
+    return render_template('addcertificate.html')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
