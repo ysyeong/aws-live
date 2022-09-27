@@ -51,6 +51,7 @@ def login():
                 # record the user name
                 session["id"] = row[1]
                 session["name"] = row[2]
+                cursor.close()
                 # redirect to the main page
                 return redirect("/")
             else:

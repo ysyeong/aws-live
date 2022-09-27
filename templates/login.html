@@ -75,6 +75,14 @@
 
 <body>
     <div class="container">
+        {% with msg = get_flashed_messages() %}
+        {% if msg %}
+            <script>
+                var msg = "{{ msg }}";
+                    alert(msg);
+            </script>
+        {% endif %}
+        {% endwith %}
         <form action="/login" method="POST">
             <h1>Login</h1>
             <div class="form-group">
