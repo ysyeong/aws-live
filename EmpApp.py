@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from pymysql import connections
 import os
 import boto3
@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+# For Flash #
+app.secret_key = "secret" 
 
 bucket = custombucket
 region = customregion
@@ -37,10 +40,23 @@ def home():
 def login():
       # if form is submited
     if request.method == "POST":
-        # record the user name
-        session["id"] = request.form.get("id")
-        # redirect to the main page
-        return redirect("/")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        sql_query = "SELECT * FROM employee WHERE emp_email'" + email + "'"
+        cursor = db_conn.cursor()
+        try:
+            cursor.execute(sql_query)
+            row = cursor.fetchone()
+            if row != None and row[4] == password:
+                # record the user name
+                session["id"] = row[1]
+                session["name"] = row[2]
+                # redirect to the main page
+                return redirect("/")
+            else:
+                flash("Invalid email or password. Please try again.")
+        except Exception as e:
+            return str(e)
     return render_template('login.html')
 
 
@@ -106,6 +122,7 @@ def AddEmp():
 @app.route("/logout")
 def logout():
     session["id"] = None
+    session["name"] = None
     return redirect("/")
 
 
