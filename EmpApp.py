@@ -48,7 +48,7 @@ def login():
 def about():
     return render_template('www.intellipaat.com')
 
-@app.route("/certificate", methods=['POST'])
+@app.route("/certificate", methods=['GET','POST'])
 def certificate():
     return render_template('certificate.html')
 
