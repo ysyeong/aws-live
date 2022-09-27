@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
 from pymysql import connections
 import os
 import boto3
+from flask_session import Session
 from config import *
 
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 bucket = custombucket
 region = customregion
@@ -23,10 +27,20 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    # check if the users exist or not
+    if not session.get("id"):
+        # if not there in the session then redirect to the login page
+        return redirect("/login")
     return render_template('index.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+      # if form is submited
+    if request.method == "POST":
+        # record the user name
+        session["id"] = request.form.get("id")
+        # redirect to the main page
+        return redirect("/")
     return render_template('login.html')
 
 
@@ -83,6 +97,12 @@ def AddEmp():
 
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
+
+
+@app.route("/logout")
+def logout():
+    session["id"] = None
+    return redirect("/")
 
 
 if __name__ == '__main__':
