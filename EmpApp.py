@@ -42,7 +42,7 @@ def login():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-        sql_query = "SELECT * FROM employee WHERE emp_email ='" + email + "'"
+        sql_query = "SELECT * FROM employee WHERE email ='" + email + "'"
         cursor = db_conn.cursor()
         try:
             cursor.execute(sql_query)
