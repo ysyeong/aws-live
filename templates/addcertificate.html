@@ -1,14 +1,17 @@
 {% include 'header.html' %}
 <style>
-    .container-addcertificate{
+    .container-addcertificate {
         margin: 10%;
         background-color: white;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-    .form-group{
-        margin:5%;
+
+    .form-group,
+    .mb-3{
+        margin: 5%;
     }
-    .btn-primary{
+
+    .btn-primary {
         margin-bottom: 5%;
     }
 </style>
@@ -18,11 +21,11 @@
             <label for="CertificationName">Certification Name</label>
             <input type="text" class="form-control" id="Certification Name" aria-describedby="emailHelp"
                 placeholder="Enter email">
-        </div><br/>
+        </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Certification Description</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div><br/>
+        </div>
         <div class="input-group mb-3">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="inputGroupFile02">
@@ -31,7 +34,7 @@
             <div class="input-group-append">
                 <span class="input-group-text" id="">Upload</span>
             </div>
-        </div><br/>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
