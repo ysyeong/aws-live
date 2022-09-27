@@ -38,7 +38,7 @@ def login():
       # if form is submited
     if request.method == "POST":
         # record the user name
-        session["id"] = request.form.get("id")
+        session["id"] = request.form.get("")
         # redirect to the main page
         return redirect("/")
     return render_template('login.html')
@@ -47,6 +47,10 @@ def login():
 @app.route("/about", methods=['POST'])
 def about():
     return render_template('www.intellipaat.com')
+
+@app.route("/certificate", methods=['POST'])
+def certificate():
+    return render_template('certificate.html')
 
 
 @app.route("/addemp", methods=['POST'])
