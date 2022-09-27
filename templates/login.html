@@ -78,7 +78,7 @@
         {% with msg = get_flashed_messages() %}
         {% if msg %}
             <script>
-                var msg = "{{ msg }}";
+                var msg = "{{ msg | safe}}";
                     alert(msg);
             </script>
         {% endif %}
