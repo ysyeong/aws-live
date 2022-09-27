@@ -49,8 +49,8 @@ def login():
             row = cursor.fetchone()
             if row != None and row[3] == password:
                 # record the user name
-                session["id"] = row[1]
-                session["name"] = row[2]
+                session["id"] = row[0]
+                session["name"] = row[1]
                 cursor.close()
                 # redirect to the main page
                 return redirect("/")
