@@ -347,6 +347,21 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+@app.route("/performancenote", methods=['GET','POST'])
+def performancenote():
+    sql_query = "SELECT * FROM performanceNote"
+    cursor = db_conn.cursor()
+    try:
+        cursor.execute(sql_query)
+        records = list(cursor.fetchall())
+
+        pn = []
+        for rows in records:
+            pn.append(list(rows))
+        cursor.close()
+        return render_template('performancenote.html', pn = pn)
+    except Exception as e:
+        return str(e)
 
 @app.route("/logout")
 def logout():
