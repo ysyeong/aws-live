@@ -170,7 +170,7 @@ def addcertificate():
 
     return render_template('addcertificate.html')
 
-@app.route("/deletecertificate", method=['GET','POST'])
+@app.route("/deletecertificate", methods=['GET','POST'])
 def deletecertificate():
 
     if request.method == "POST":
