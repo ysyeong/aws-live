@@ -11,19 +11,19 @@
     </div>
     <div class="m-5">
         <label for="pnTitleTitle"><b>performance Note Title:</b></label>
-        <label for="pnTitle">{{cert[1]}}</label>
+        <label for="pnTitle">{{pn[1]}}</label>
     </div>
     <div class="m-5">
         <label for="pnDescTitle"><b>Perforemance Note Description:</b></label>
-        <label for="pnDesc">{{cert[2]}}</label>
+        <label for="pnDesc">{{pn[2]}}</label>
     </div>
     <div class="m-5">
         <label for="pnDescTitle"><b>Resolver/Owners:</b></label>
-        <label for="pnDesc">{{cert[4]}}</label>
+        <label for="pnDesc">{{pn[4]}}</label>
     </div>
     <div class="m-5 pb-5">
-        <form action="/deletecertificate" method="POST">
-            <input type="hidden" name="certId" value="{{pn[0]}}">
+        <form action="/deleteperformancenote" method="POST">
+            <input type="hidden" name="pnId" value="{{pn[0]}}">
             <button type="submit" name="delete" class="btn btn-danger">Delete</button>
             <a href="/performancenote" class="btn btn-danger float-right">Back</a>
         </form>
