@@ -173,7 +173,6 @@ def addcertificate():
 
 @app.route("/deletecertificate", methods=['GET','POST'])
 def deletecertificate():
-
     if request.method == "POST":
         cID = request.form['certId']
         sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ cID+"'"
@@ -190,11 +189,33 @@ def deletecertificate():
             cursor.execute(sql_query)
             db_conn.commit
             cursor.close()
-            return render_template('certificate.html')
+            return redirect("/certificate")
         except Exception as e:
             return str(e)
     else:
-        return render_template('certificate.html')
+        return redirect("/certificate")
+
+@app.route("/deletecertificateconfirmation", methods=['GET','POST'])
+def deletecertificateconfirmation():
+    if request.method == "POST":
+        cID = request.form['certId']
+        sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ cID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(sql_query)
+            cert = list(cursor.fetchone())
+            #s3.Object(custombucket, cert[4]).delete()
+            public_url = s3_client.generate_presigned_url('get_object', 
+                                                                Params = {'Bucket': custombucket, 
+                                                                            'Key': cert[4]})
+            cert.append(public_url)
+            cert.append("checked")
+            cursor.close()
+        except Exception as e:
+            return str(e)
+    else:
+        return redirect("/certificate")
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():

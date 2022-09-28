@@ -6,21 +6,27 @@
         <label for="datetime">{{cert[3]}}</label>
     </div>
     <div class="m-5 pt-5">
-        <label for="certNameTitle">Certification Name</label>
+        <label for="certNameTitle"><b>Certification ID:</b></label>
+        <label for="certName">{{cert[0]}}</label>
+    </div>
+    <div class="m-5 pt-5">
+        <label for="certNameTitle"><b>Certification Name:</b>></label>
         <label for="certName">{{cert[1]}}</label>
     </div>
     <div class="m-5">
-        <label for="certDescTitle">Certification Description</label>
+        <label for="certDescTitle"><b>Certification Description:</b></label>
         <label for="certDesc">{cert[2]}}</label>
     </div>
     <div class="m-5">
-        <a href=""><img src=# style="width: 250px"></a>
+        <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a>
     </div>
     <form action="/deletecertificate" method="POST">
-        <input type="hidden" name="certId" value="{{cert[0]}}">
-        <button type="submit" name="view" class="btn btn-danger">Delete</button>
+        <div class="m-5">
+            <input type="hidden" name="certId" value="{{cert[0]}}">
+            <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+            <a href="/certificate" class="btn btn-danger float-right">Back</a>
+        </div>
     </form>
-    <a href="/certificate" class="btn btn-danger float-right">Back</a>
 </div>
 {% endif %}
 {% include 'footer.html' %}
