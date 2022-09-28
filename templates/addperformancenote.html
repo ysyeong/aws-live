@@ -1,0 +1,30 @@
+{% include 'header.html' %}
+<div class="col-md-11 shadow rounded m-5 bg-white">
+    <form action="/addperformancenote" autocomplete="on" method="POST" enctype="multipart/form-data">
+        <div class="m-5 pt-5">
+            <label for="certName">Title</label>
+            <input type="text" class="form-control" name="pnTitle" aria-describedby="emailHelp"
+                placeholder="Enter Title" required>
+        </div>
+        <div class="m-5">
+            <label for="certDesc">Description</label>
+            <textarea class="form-control" name="pnDesc" rows="3" required></textarea>
+        </div>
+        <div class="m-5">
+            <label for="certDesc">Resolver/Owner</label>
+            <select name="empId" class="form-control">
+                {% if employees %}
+                {% for row in employees %}
+                <option value="{{row[0]}}">{{row[1]}}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <div class="m-5 ">
+            <button type="submit" class="btn btn-primary m-5">Submit</button>
+            <input type="reset" class="btn btn-danger m-5" value="Reset">
+            <a href="/certificate" class="btn btn-danger float-right m-5">Back</a>
+        </div>
+    </form>
+</div>
+{% include 'footer.html' %}
