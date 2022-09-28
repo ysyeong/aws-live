@@ -135,7 +135,7 @@ def addcertificate():
         except Exception as e:
             return str(e)
 
-        sql_query = "INSERT INTO certificate employee VALUES (%s, %s, %s, %s, %s, %s)"
+        sql_query = "INSERT INTO certificate VALUES (%s, %s, %s, %s, %s, %s)"
 
         try:
             image_file_name_in_s3 = "cert/" + str(session["id"]) + "_image_file" + str(cID) + get_file_extension(cFile.filename)
