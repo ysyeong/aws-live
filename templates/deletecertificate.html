@@ -20,13 +20,13 @@
     <div class="m-5">
         <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a>
     </div>
-    <form action="/deletecertificate" method="POST" class="m-5">
-        <div>
+    <div class="m-5">
+        <form action="/deletecertificate" method="POST" class="m-5">
             <input type="hidden" name="certId" value="{{cert[0]}}">
             <button type="submit" name="delete" class="btn btn-danger">Delete</button>
             <a href="/certificate" class="btn btn-danger float-right">Back</a>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 {% endif %}
 {% include 'footer.html' %}
