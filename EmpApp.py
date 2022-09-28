@@ -168,7 +168,7 @@ def addcertificate():
 
         finally:
             cursor.close()
-            return redirect("/certificate.html")
+            return redirect("/certificate")
 
     return render_template('addcertificate.html')
 
