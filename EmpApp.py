@@ -426,11 +426,11 @@ def deleteperformancenoteconfirmation():
             cursor.execute(sql_query)
             record = list(cursor.fetchone())
             cursor.close()
-            return render_template('deletecertificate.html', pn = record)
+            return render_template('deleteperformancenote.html', pn = record)
         except Exception as e:
             return str(e)
     else:
-        return redirect("/certificate")
+        return redirect("/performancenote")
 
 @app.route("/logout")
 def logout():
