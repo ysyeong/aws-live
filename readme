@@ -13,5 +13,12 @@ pip3 install Flask-Session
 python3 EmpApp.py
 
 
+#remove 
+cd ..
+rm -rf aws-live/
+git clone https://github.com/ysyeong/aws-live.git
+cd aws-live/
+python3 EmpApp.py
+
 
 
