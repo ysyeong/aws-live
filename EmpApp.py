@@ -392,8 +392,12 @@ def addperformancenote():
         finally:
             cursor.close()
             return redirect("/performancenote")
-
-    return render_template('addperformancenote.html')
+    else:
+        sql_query = "SELECT * FROM employee"
+        cursor = db_conn.cursor()
+        cursor.execute(sql_query)
+        records = cursor.fetchall()
+        return render_template('addperformancenote.html', employees = records)
 
 @app.route("/logout")
 def logout():
