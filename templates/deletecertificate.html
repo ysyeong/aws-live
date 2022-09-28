@@ -2,7 +2,7 @@
 {% if cert %}
 <div class="col-md-11 shadow rounded m-5 bg-white">
     <div class="m-5 pt-5">
-        <label for="dateTitle">Date upload:</label>
+        <label for="dateTitle"><b>Date upload:</b></label>
         <label for="datetime">{{cert[3]}}</label>
     </div>
     <div class="m-5 pt-5">
@@ -10,12 +10,12 @@
         <label for="certName">{{cert[0]}}</label>
     </div>
     <div class="m-5 pt-5">
-        <label for="certNameTitle"><b>Certification Name:</b>></label>
+        <label for="certNameTitle"><b>Certification Name:</b></label>
         <label for="certName">{{cert[1]}}</label>
     </div>
     <div class="m-5">
         <label for="certDescTitle"><b>Certification Description:</b></label>
-        <label for="certDesc">{cert[2]}}</label>
+        <label for="certDesc">{{cert[2]}}</label>
     </div>
     <div class="m-5">
         <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a>
