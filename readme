@@ -19,6 +19,3 @@ rm -rf aws-live/
 git clone https://github.com/ysyeong/aws-live.git
 cd aws-live/
 python3 EmpApp.py
-
-
-
