@@ -24,9 +24,12 @@
             <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a><br/>
             <input type="file" class="form-control" name="myCert" accept="image/png, image/gif, image/jpeg">
         </div>
-        <button type="submit" class="btn btn-primary m-5">Save</button>
+        <div class="m-5 ">
+            <button type="submit" class="btn btn-primary m-5">Save</button>
+            <a href="/certificate" class="btn btn-danger float-right">Back</a>
+        </div>
     </form>
-    <a href="/certificate" class="btn btn-danger float-right">Back</a>
+
 </div>
 {% endif %}
 {% include 'footer.html' %}

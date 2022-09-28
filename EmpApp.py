@@ -259,7 +259,6 @@ def modifycertificate():
                                                                             'Key': cert[4]})
             cert.append(public_url)
             cert.append("checked")
-            cursor.close()
         except Exception as e:
             return str(e)
         sql_query = "UPDATE certificate SET certificateName='"+ cName +"', certificateDesc='"+ cDesc+"' WHERE emp_id='"+ session["id"] +"' and certificateID='"+ cID+"'"
@@ -293,6 +292,8 @@ def modifycertificate():
         else:
             cursor.execute(sql_query, (cName, cDesc))
             db_conn.commit()
+
+        cursor.close()
     else:
         return redirect("/certificate")
 
