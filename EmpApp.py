@@ -264,7 +264,7 @@ def modifycertificate():
         sql_query = "UPDATE certificate SET certificateName='"+ cName +"', certificateDesc='"+ cDesc+"' WHERE emp_id='"+ session["id"] +"' and certificateID='"+ cID+"'"
         if(cFile.filename != ""):
             try:
-                cursor.execute(sql_query, (cName, cDesc))
+                cursor.execute(sql_query)
                 db_conn.commit()
                 try:
                     s3.Object(custombucket, cert[4]).delete()
@@ -290,7 +290,7 @@ def modifycertificate():
             except Exception as e:
                 return str(e)
         else:
-            cursor.execute(sql_query, (cName, cDesc))
+            cursor.execute(sql_query)
             db_conn.commit()
 
         cursor.close()
