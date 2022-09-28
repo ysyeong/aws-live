@@ -131,7 +131,6 @@ def addcertificate():
             cursor.execute(sql_query)
             records = cursor.fetchall()
             cID =  int(len(records)) + 1
-            cursor.close()
         except Exception as e:
             return str(e)
 
