@@ -398,6 +398,40 @@ def addperformancenote():
         cursor.close()
         return render_template('addperformancenote.html', employees = records)
 
+@app.route("/deleteperformancenote", methods=['GET','POST'])
+def deleteperformancenote():
+    if request.method == "POST":
+        pnID = request.form['pnId']
+        sql_query = "DELETE FROM performanceNote WHERE pnID ='"+ pnID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(sql_query)
+            db_conn.commit
+            cursor.close()
+            return redirect("/performancenote")
+        except Exception as e:
+            return str(e)
+    else:
+        return redirect("/performancenote")
+
+@app.route("/deleteperformancenoteconfirmation", methods=['GET','POST'])
+def deleteperformancenoteconfirmation():
+    if request.method == "POST":
+        pnID = request.form['pnId']
+        sql_query = "SELECT * FROM performancenote WHERE pnID ='"+ pnID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(sql_query)
+            record = list(cursor.fetchone())
+            cursor.close()
+            return render_template('deletecertificate.html', pn = record)
+        except Exception as e:
+            return str(e)
+    else:
+        return redirect("/certificate")
+
 @app.route("/logout")
 def logout():
     session["id"] = None
