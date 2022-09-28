@@ -42,7 +42,21 @@ def home():
     if not session.get("id"):
         # if not there in the session then redirect to the login page
         return redirect("/login")
-    return render_template('index.html')
+    else:
+        sql_query = "SELECT * FROM performanceNote"
+        cursor = db_conn.cursor()
+        try:
+            cursor.execute(sql_query)
+            records = list(cursor.fetchall())
+
+            pn = []
+            for rows in records:
+                pn.append(list(rows))
+            cursor.close()
+            return render_template('index.html', pn = pn)
+        except Exception as e:
+            return str(e)    
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
