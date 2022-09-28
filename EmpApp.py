@@ -212,6 +212,7 @@ def deletecertificateconfirmation():
             cert.append(public_url)
             cert.append("checked")
             cursor.close()
+            return render_template('deletecertificate.html', cert = cert)
         except Exception as e:
             return str(e)
     else:
