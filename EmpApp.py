@@ -419,7 +419,7 @@ def deleteperformancenote():
 def deleteperformancenoteconfirmation():
     if request.method == "POST":
         pnID = request.form['pnId']
-        sql_query = "SELECT * FROM performancenote WHERE pnID ='"+ pnID+"'"
+        sql_query = "SELECT * FROM performanceNote WHERE pnID ='"+ pnID+"'"
         cursor = db_conn.cursor()
 
         try:
