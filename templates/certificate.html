@@ -120,11 +120,11 @@
                         <td>
                             <form action="/viewcertificate" method="POST" class="d-inline">
                                 <input type="hidden" name="certId" value="{{row[0]}}">
-                                <button type="submit" name="view" class="btn btn-info btn-sm">View</button>
+                                <button type="submit" name="view" class="btn btn-secondary btn-sm">View</button>
                             </form>
                             <form action="/modifycertificateconfirmation" method="POST" class="d-inline">
                                 <input type="hidden" name="certId" value="{{row[0]}}">
-                                <button type="submit" name="modify" class="btn btn-success btn-sm">Modify</button>
+                                <button type="submit" name="modify" class="btn btn-warning btn-sm">Modify</button>
                             </form>
                             <form action="/deletecertificateconfirmation" method="POST" class="d-inline">
                                 <input type="hidden" name="certId" value="{{row[0]}}">
