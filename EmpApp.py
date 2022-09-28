@@ -1,4 +1,3 @@
-from tkinter import E
 from flask import Flask, render_template, request, redirect, session, flash
 from pymysql import connections
 import os
