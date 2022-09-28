@@ -364,23 +364,22 @@ def performancenote():
 @app.route("/addperformancenote", methods=['GET','POST'])
 def addperformancenote():
     if request.method == "POST":
-        print("checkpoint1")
         pnTitle = request.form.get("pnTitle")
         pnDesc = request.form.get("pnDesc")
         pnDateTime =  str(datetime.now().strftime("%Y-%m-%d"))
         pnOwner = request.form.get("empId")
-        print("checkpoint1")
+
         sql_query = "SELECT * FROM performanceNote"
         cursor = db_conn.cursor()
         try:
             cursor.execute(sql_query)
             records = cursor.fetchall()
+            cursor.close()
             pnID =  int(len(records)) + 1
         except Exception as e:
             return str(e)
-        print("checkpoint3")
         sql_query = "INSERT INTO performanceNote VALUES (%s, %s, %s, %s, %s)"
-
+        cursor = db_conn.cursor()
         try:
             cursor.execute(sql_query, (pnID, pnTitle, pnDesc, pnDateTime, pnOwner))
             db_conn.commit()
