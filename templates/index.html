@@ -162,9 +162,8 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Title</th>
-                            <th class="col-md-3">Description</th>
+                            <th class="col-md-5">Description</th>
                             <th class="col-md-5">Resolver/Owner</th>
-                            <th class="col-md-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -173,21 +172,6 @@
                             <td>{{row[1]}}</td>
                             <td>{{row[2]}}</td>
                             <td>{{row[4]}}</td>
-                            <td>
-                                <form action="/viewperformancenote" method="POST" class="d-inline">
-                                    <input type="hidden" name="pnId" value="{{row[0]}}">
-                                    <button type="submit" name="view" class="btn btn-secondary btn-sm">View</button>
-                                </form>
-                                <form action="/modifyperformanceconfirmation" method="POST" class="d-inline">
-                                    <input type="hidden" name="pnId" value="{{row[0]}}">
-                                    <button type="submit" name="modify" class="btn btn-warning btn-sm">Modify</button>
-                                </form>
-                                <form action="/deleteperformancenoteconfirmation" method="POST" class="d-inline">
-                                    <input type="hidden" name="pnId" value="{{row[0]}}">
-                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
