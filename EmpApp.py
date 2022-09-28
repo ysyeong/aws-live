@@ -138,7 +138,7 @@ def addcertificate():
 
         try:
             image_file_name_in_s3 = "cert/" + str(session["id"]) + "_image_file" + str(cID) + get_file_extension(cFile.filename)
-            cursor.execute(sql_query, (cID, cName, cDesc, cDateTime, cFile, session["id"]))
+            cursor.execute(sql_query, (cID, cName, cDesc, cDateTime, image_file_name_in_s3, session["id"]))
             db_conn.commit()
 
             try:
