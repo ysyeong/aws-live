@@ -89,7 +89,7 @@ def certificate():
     except Exception as e:
         return str(e)
 
-app.route("/viewcertificate", methods=['GET','POST'])
+@app.route("/viewcertificate", methods=['GET','POST'])
 def viewcertificate():
     if request.method == "POST":
         certid = request.form['certId']
