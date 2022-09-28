@@ -294,6 +294,7 @@ def modifycertificate():
             db_conn.commit()
 
         cursor.close()
+        return redirect("/certificate")
     else:
         return redirect("/certificate")
 
