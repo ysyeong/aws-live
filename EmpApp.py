@@ -120,7 +120,7 @@ def addcertificate():
         cName = request.form.get("certName")
         cDesc = request.form.get("certDesc")
         cDateTime =  str(datetime.now().strftime("%Y-%m-%d"))
-        cFile = request.form["myCert"]
+        cFile = request.files["myCert"]
 
         if cFile.filename == "":
             return "Please select a image file"
