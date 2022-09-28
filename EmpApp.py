@@ -383,7 +383,7 @@ def addperformancenote():
         sql_query = "INSERT INTO performanceNote VALUES (%s, %s, %s, %s, %s)"
 
         try:
-            cursor.execute(sql_query, (pnID, pnTitle, pnDesc, pnDateTime, pnOwner))
+            cursor.execute(sql_query, (str(pnID), pnTitle, pnDesc, pnDateTime, pnOwner))
             db_conn.commit()
 
         except Exception as e:
