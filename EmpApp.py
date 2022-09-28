@@ -1,3 +1,4 @@
+from tkinter import E
 from flask import Flask, render_template, request, redirect, session, flash
 from pymysql import connections
 import os
@@ -75,7 +76,7 @@ def about():
 
 @app.route("/certificate", methods=['GET','POST'])
 def certificate():
-    sql_query = "SELECT * FROM employee"
+    sql_query = "SELECT * FROM certificate WHERE emp_id ='"+ session["id"] +"'"
     cursor = db_conn.cursor()
     try:
         cursor.execute(sql_query)
@@ -169,6 +170,31 @@ def addcertificate():
             return redirect("/certificate.html")
 
     return render_template('addcertificate.html')
+
+@app.route("/deletecertificate", method=['GET','POST'])
+def deletecertificate():
+
+    if request.method == "POST":
+        cID = request.form['certId']
+        sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ cID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            try:
+                cursor.execute(sql_query)
+                cert = list(cursor.fetchone())
+                s3.Object(custombucket, cert[4]).delete()
+            except Exception as e:
+                return str(e)
+            sql_query = "DELETE FROM certificate WHERE certificateID ='"+ cID+"'"
+            cursor.execute(sql_query)
+            db_conn.commit
+            cursor.close()
+            return render_template('certificate.html')
+        except Exception as e:
+            return str(e)
+    else:
+        return render_template('certificate.html')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
