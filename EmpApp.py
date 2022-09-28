@@ -397,6 +397,7 @@ def addperformancenote():
         cursor = db_conn.cursor()
         cursor.execute(sql_query)
         records = cursor.fetchall()
+        cursor.close()
         return render_template('addperformancenote.html', employees = records)
 
 @app.route("/logout")
