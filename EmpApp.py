@@ -218,6 +218,84 @@ def deletecertificateconfirmation():
     else:
         return redirect("/certificate")
 
+@app.route("/modifycertificateconfirmation", methods=['GET','POST'])
+def modifycertificateconfirmation():
+    if request.method == "POST":
+        cID = request.form['certId']
+        sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ cID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(sql_query)
+            cert = list(cursor.fetchone())
+            #s3.Object(custombucket, cert[4]).delete()
+            public_url = s3_client.generate_presigned_url('get_object', 
+                                                                Params = {'Bucket': custombucket, 
+                                                                            'Key': cert[4]})
+            cert.append(public_url)
+            cert.append("checked")
+            cursor.close()
+            return render_template('modifycertificate.html', cert = cert)
+        except Exception as e:
+            return str(e)
+    else:
+        return redirect("/certificate")
+
+@app.route("/modifycertificate", methods=['GET','POST'])
+def modifycertificate():
+    if request.method == "POST":
+        cID = request.form['certId']
+        cName = request.form['certName']
+        cDesc = request.form['certDesc']
+        cFile = request.files['myCert']
+        sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ cID+"'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(sql_query)
+            cert = list(cursor.fetchone())
+            public_url = s3_client.generate_presigned_url('get_object', 
+                                                                Params = {'Bucket': custombucket, 
+                                                                            'Key': cert[4]})
+            cert.append(public_url)
+            cert.append("checked")
+            cursor.close()
+        except Exception as e:
+            return str(e)
+        sql_query = "UPDATE certificate SET certificateName='"+ cName +"', certificateDesc='"+ cDesc+"' WHERE emp_id='"+ session["id"] +"' and certificateID='"+ cID+"'"
+        if(cFile.filename != ""):
+            try:
+                cursor.execute(sql_query, (cName, cDesc))
+                db_conn.commit()
+                try:
+                    s3.Object(custombucket, cert[4]).delete()
+                    print("Data inserted in MySQL RDS... uploading image to S3...")
+                    s3.Bucket(custombucket).put_object(Key=cert[4], Body=cFile)
+                    bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                    s3_location = (bucket_location['LocationConstraint'])
+
+                    if s3_location is None:
+                        s3_location = ''
+                    else:
+                        s3_location = '-' + s3_location
+
+                    object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        cert[4])
+
+                    flash("Certificate added successfully!")
+
+                except Exception as e:
+                    return str(e)
+            except Exception as e:
+                return str(e)
+        else:
+            cursor.execute(sql_query, (cName, cDesc))
+            db_conn.commit()
+    else:
+        return redirect("/certificate")
+
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     emp_id = request.form['emp_id']

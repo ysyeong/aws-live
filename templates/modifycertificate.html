@@ -2,18 +2,28 @@
 <div class="col-md-11 shadow rounded m-5 bg-white">
     <form action="/addcertificate" autocomplete="on" method="POST" enctype="multipart/form-data">
         <div class="m-5 pt-5">
+            <label for="dateTitle"><b>Date upload:</b></label>
+            <label for="datetime">{{cert[3]}}</label>
+        </div>
+        <div class="m-5">
+            <label for="certIDTitle"><b>Certification ID:</b></label>
+            <label for="certName">{{cert[0]}}</label>
+            <input type="hidden" name="certId" value="{{row[0]}}"> 
+        </div>
+        <div class="m-5 pt-5">
             <label for="certName">Certification Name</label>
             <input type="text" class="form-control" name="certName" aria-describedby="emailHelp"
-                placeholder="Enter Certification Name" required>
+                placeholder="Enter Certification Name" value={{cert[1]}}required>
         </div>
         <div class="m-5">
             <label for="certDesc">Certification Description</label>
-            <textarea class="form-control" name="certDesc" rows="3" required></textarea>
+            <textarea class="form-control" name="certDesc" rows="3" required value="{{cert[2]}}"></textarea>
         </div>
         <div class="m-5">
-            <input type="file" class="form-control" name="myCert" accept="image/png, image/gif, image/jpeg" required>
+            <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a>
+            <input type="file" class="form-control" name="myCert" accept="image/png, image/gif, image/jpeg">
         </div>
-        <button type="submit" class="btn btn-primary m-5">Submit</button>
+        <button type="submit" class="btn btn-primary m-5">Save</button>
     </form>
     <a href="/certificate" class="btn btn-danger float-right">Back</a>
 </div>
