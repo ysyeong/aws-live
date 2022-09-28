@@ -14,14 +14,14 @@
         <div class="m-5 pt-5">
             <label for="certName">Certification Name</label>
             <input type="text" class="form-control" name="certName" aria-describedby="emailHelp"
-                placeholder="Enter Certification Name" value={{cert[1]}}required>
+                placeholder="Enter Certification Name" value={{cert[1]}} required>
         </div>
         <div class="m-5">
             <label for="certDesc">Certification Description</label>
-            <textarea class="form-control" name="certDesc" rows="3" required value="{{cert[2]}}"></textarea>
+            <textarea class="form-control" name="certDesc" rows="3" required>{{cert[2]}}</textarea>
         </div>
         <div class="m-5">
-            <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a>
+            <a href="{{cert[6]}}"><img src={{cert[6]}} style="width: 450px"></a><br/>
             <input type="file" class="form-control" name="myCert" accept="image/png, image/gif, image/jpeg">
         </div>
         <button type="submit" class="btn btn-primary m-5">Save</button>
