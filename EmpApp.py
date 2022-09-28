@@ -111,6 +111,8 @@ def viewcertificate():
             return render_template('viewcertificate.html', cert = cert)
         except Exception as e:
             return str(e)
+    else:
+        return redirect("/certificate")
 
 @app.route("/addcertificate", methods=['GET','POST'])
 def addcertificate():
