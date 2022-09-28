@@ -425,8 +425,13 @@ def deleteperformancenoteconfirmation():
         try:
             cursor.execute(sql_query)
             record = list(cursor.fetchone())
+
+            sql_query = "SELECT * FROM employee WHERE emp_id='"+ record[4] +"'"
+            cursor.execute(sql_query)
+            employee = list(cursor.fetchone())
+
             cursor.close()
-            return render_template('deleteperformancenote.html', pn = record)
+            return render_template('deleteperformancenote.html', pn = record, employee = employee)
         except Exception as e:
             return str(e)
     else:
