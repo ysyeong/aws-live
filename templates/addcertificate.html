@@ -1,23 +1,17 @@
 {% include 'header.html' %}
-<style>
-    .container {
-        background-color: white;
-    }
-
-</style>
-<div class="container shadow rounded m-5 mr-5">
+<div class="col-md-11 shadow rounded m-5 bg-white">
     <form action="/addcertificate" autocomplete="on" method="POST" enctype="multipart/form-data">
-        <div class="m-5">
+        <div class="m-5 pt-5">
             <label for="certName">Certification Name</label>
-            <input type="text" class="form-control" id="Certification Name" aria-describedby="emailHelp"
-                placeholder="Enter email">
+            <input type="text" class="form-control" name="certName" aria-describedby="emailHelp"
+                placeholder="Enter Certification Name" required>
         </div>
         <div class="m-5">
             <label for="certDesc">Certification Description</label>
-            <textarea class="form-control" id="certDesc" rows="3"></textarea>
+            <textarea class="form-control" name="certDesc" rows="3" required></textarea>
         </div>
         <div class="m-5">
-            <input type="file" class="form-control" name="myfile">
+            <input type="file" class="form-control" name="myCert" accept="image/png, image/gif, image/jpeg" required>
         </div>
         <button type="submit" class="btn btn-primary m-5">Submit</button>
     </form>

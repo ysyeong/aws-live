@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from flask_session import Session
+from datetime import datetime
 from config import *
 
 app = Flask(__name__)
@@ -12,6 +13,9 @@ Session(app)
 
 # For Flash #
 app.secret_key = "secret" 
+
+s3 = boto3.resource('s3')
+s3_client = boto3.client('s3')
 
 bucket = custombucket
 region = customregion
@@ -26,6 +30,10 @@ db_conn = connections.Connection(
 )
 output = {}
 table = 'employee'
+
+def get_file_extension(filename):
+    if '.' in filename:
+        return filename.rsplit('.', 1)[1].lower()
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -81,8 +89,85 @@ def certificate():
     except Exception as e:
         return str(e)
 
+app.route("/viewcertificate", methods=['GET','POST'])
+def viewcertificate():
+    if request.method == "POST":
+        certid = request.form['certId']
+        sql_query = "SELECT * FROM certificate WHERE certificateID ='"+ certid +"'"
+        cursor = db_conn.cursor()
+        try:
+            cursor.execute(sql_query)
+            cert = list(cursor.fetchone())
+
+            public_url = s3_client.generate_presigned_url('get_object', 
+                                                                Params = {'Bucket': custombucket, 
+                                                                            'Key': cert[4]})
+
+            cert.append(public_url)
+            cert.append("checked")
+
+            cursor.close()
+
+            return render_template('viewcertificate.html', cert = cert)
+        except Exception as e:
+            return str(e)
+
 @app.route("/addcertificate", methods=['GET','POST'])
 def addcertificate():
+    if request.method == "POST":
+        cName = request.form.get("certName")
+        cDesc = request.form.get("certDesc")
+        cDateTime =  str(datetime.now().strftime("%Y-%m-%d"))
+        cFile = request.form["myCert"]
+
+        if cFile.filename == "":
+            return "Please select a image file"
+
+        sql_query = "SELECT * FROM certificate"
+        cursor = db_conn.cursor()
+        try:
+            cursor.execute(sql_query)
+            records = cursor.fetchall()
+            cID =  int(len(records)) + 1
+            cursor.close()
+        except Exception as e:
+            return str(e)
+
+        sql_query = "INSERT INTO certificate employee VALUES (%s, %s, %s, %s, %s, %s)"
+
+        try:
+            image_file_name_in_s3 = "cert/" + str(session["id"]) + "_image_file" + str(cID) + get_file_extension(cFile.filename)
+            cursor.execute(sql_query, (cID, cName, cDesc, cDateTime, ))
+            db_conn.commit()
+
+            try:
+                print("Data inserted in MySQL RDS... uploading image to S3...")
+                s3.Bucket(custombucket).put_object(Key=image_file_name_in_s3, Body=cFile)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location['LocationConstraint'])
+
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
+
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    image_file_name_in_s3)
+
+                flash("Certificate added successfully!")
+
+            except Exception as e:
+                return str(e)
+
+        except Exception as e:
+            return str(e)
+
+        finally:
+            cursor.close()
+            return redirect("/certificate.html")
+
     return render_template('addcertificate.html')
 
 @app.route("/addemp", methods=['POST'])
