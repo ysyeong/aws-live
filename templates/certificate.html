@@ -126,10 +126,9 @@
                                 <input type="hidden" name="certId" value="{{row[0]}}">
                                 <button type="submit" name="modify" class="btn btn-success btn-sm">Modify</button>
                             </form>
-                            <form action="/deletecertificateconfirmation" method="POST" class="d-inline" id="deleteEmployee">
+                            <form action="/deletecertificateconfirmation" method="POST" class="d-inline">
                                 <input type="hidden" name="certId" value="{{row[0]}}">
-                                <button type="submit" name="delete" class="btn btn-danger btn-sm"
-                                    onclick="myFunction(event)">Delete</button>
+                                <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
                     </tr>
