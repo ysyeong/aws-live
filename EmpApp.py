@@ -380,7 +380,7 @@ def addperformancenote():
         except Exception as e:
             return str(e)
 
-        sql_query = "INSERT INTO performanceNote VALUES (%s, %s, %s, %s, %s, %s)"
+        sql_query = "INSERT INTO performanceNote VALUES (%s, %s, %s, %s, %s)"
 
         try:
             cursor.execute(sql_query, (pnID, pnTitle, pnDesc, pnDateTime, pnOwner))
@@ -393,7 +393,7 @@ def addperformancenote():
             cursor.close()
             return redirect("/performancenote")
 
-    return render_template('performancenote.html')
+    return render_template('addperformancenote.html')
 
 @app.route("/logout")
 def logout():
